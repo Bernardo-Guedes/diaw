@@ -1,9 +1,11 @@
 package com.example.SecureLoginPUC.controller;
 
+import com.example.SecureLoginPUC.services.PasswordResetService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.Model;
 
 @Controller
 public class SecureLoginController {
@@ -29,15 +31,31 @@ public class SecureLoginController {
         return "recoverpassword";
     }
 
+    private final PasswordResetService passwordResetService;
+
+    public SecureLoginController(PasswordResetService passwordResetService) {
+        this.passwordResetService = passwordResetService;
+    }
+
     @PostMapping("/recoverpassword")
-    public String handleRecoverPassword(
-            @RequestParam("email") String email){
+    public String handleRecoverPassword(@RequestParam("email") String email){
+        passwordResetService.createPasswordResetTokenAndSendEmail(email);
+        // Sempre redireciona com a mesma mensagem, exista o e-mail ou não
+        return "redirect:/recoverpassword?sent=true";
+    }
 
-        // Aqui você pode adicionar lógica para recuperar a senha.
-        // userService.recoverPassword(email);
+    @GetMapping("/resetpassword")
+    public String resetPasswordPage(@RequestParam("token") String token, Model model) {
+        if (!passwordResetService.isValidToken(token)) {
+            return "redirect:/error";
+        }
+        model.addAttribute("token", token);
+        return "resetpassword";
+    }
 
-        // Redirecionar ou exibir uma mensagem de sucesso
-        System.out.println("Recuperaçãode E-mail: Redirecionando para a página de login.");
-        return "redirect:/login"; // Após a recuperação de senha, redirecionar para a página de login
+    @PostMapping("/resetpassword")
+    public String handleResetPassword(@RequestParam("token") String token, @RequestParam("password") String password) {
+        boolean success = passwordResetService.resetPassword(token, password);
+        return success ? "redirect:/login?reset=true" : "redirect:/error";
     }
 }

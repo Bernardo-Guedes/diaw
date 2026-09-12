@@ -27,6 +27,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/recoverpassword").permitAll() // Permitir acesso à página de recuperação de senha
                         .requestMatchers(HttpMethod.POST, "/recoverpassword").permitAll() // Permitir acesso à página de recuperação de senha
                         .requestMatchers(HttpMethod.GET, "/error").permitAll() // Permitir acesso à página de erro
+                        .requestMatchers(HttpMethod.GET, "/resetpassword").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/resetpassword").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN") // Proteger URLs que começam com /admin para apenas ADMIN
                         .anyRequest().authenticated() // Proteger todas as outras URLs
                 )
