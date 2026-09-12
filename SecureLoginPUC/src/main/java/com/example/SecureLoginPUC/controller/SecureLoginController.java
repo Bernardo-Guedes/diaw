@@ -23,28 +23,6 @@ public class SecureLoginController {
     public String admin(){
         return "admin";
     }
-    @GetMapping("/register")
-    public String register(){
-        return "register";
-    }
-
-    @PostMapping("/register")
-    public String handleRegister(
-        @RequestParam("nome") String nome,
-        @RequestParam("email") String email,
-        @RequestParam("cpf") String cpf,
-        @RequestParam("rg") String rg,
-        @RequestParam("endereco") String endereco,
-        @RequestParam("instituicao") String instituicao,
-        @RequestParam("senha") String senha){
-
-        // Aqui você pode adicionar lógica para salvar os dados do usuário, por exemplo:
-        // userService.saveUser(new User(nome, email, cpf, rg, endereco, instituicao, senha));
-
-        // Redirecionar ou exibir uma mensagem de sucesso
-        System.out.println("Registro: Redirecionando para a página de login.");
-        return "redirect:/login"; //Após o registro, redirecionar para a página de login
-    }
 
     @GetMapping("/recoverpassword")
     public String recoverpassword(){
