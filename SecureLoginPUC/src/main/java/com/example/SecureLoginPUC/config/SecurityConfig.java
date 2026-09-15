@@ -26,7 +26,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/register").permitAll() // Permitir envio do formulário de registro
                         .requestMatchers(HttpMethod.GET, "/recoverpassword").permitAll() // Permitir acesso à página de recuperação de senha
                         .requestMatchers(HttpMethod.POST, "/recoverpassword").permitAll() // Permitir acesso à página de recuperação de senha
-                        .requestMatchers(HttpMethod.GET, "/error").permitAll() // Permitir acesso à página de erro
+                        .requestMatchers(HttpMethod.GET, "/loginerror").permitAll() // Permitir acesso à página de erro
                         .requestMatchers(HttpMethod.GET, "/resetpassword").permitAll()
                         .requestMatchers(HttpMethod.POST, "/resetpassword").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN") // Proteger URLs que começam com /admin para apenas ADMIN
@@ -47,7 +47,7 @@ public class SecurityConfig {
                             }
                         })
                         .failureHandler((request, response, authentication) -> {
-                            response.sendRedirect("/error"); // Redireciona para /error em caso de falha
+                            response.sendRedirect("/loginerror"); // Redireciona para /error em caso de falha
                         })
                 )
                 .logout(logout -> logout

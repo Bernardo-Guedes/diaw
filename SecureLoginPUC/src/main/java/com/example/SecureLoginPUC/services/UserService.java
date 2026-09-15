@@ -22,7 +22,11 @@ public class UserService {
     public User register(String username, String email, String password) {
 
         if (userRepository.existsByEmail(email)) {
-            throw new RuntimeException("Usuário já existe");
+            throw new RuntimeException("email");
+        }
+
+        if (userRepository.existsByUsername(username)) {
+            throw new RuntimeException("username");
         }
 
         String passwordEncoded = passwordEncoder.encode(password);

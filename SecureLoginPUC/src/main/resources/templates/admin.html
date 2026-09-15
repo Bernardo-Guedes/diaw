@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <title>Início</title>
+</head>
+
+<body class="min-h-screen bg-slate-100">
+
+    <nav class="bg-slate-900 text-white">
+        <div class="max-w-6xl mx-auto px-1 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <img th:src="@{/images/logo_puc.png}" alt="Logo PUC Minas" class="w-12 h-auto">
+                <span class="font-semibold text-lg">SecureLoginPUC</span>
+            </div>
+
+            <div class="flex items-center gap-6">
+                <span class="hidden sm:inline text-sm text-slate-300">
+                    Olá, <span class="font-medium text-white" th:text="${username}">admin</span>
+                </span>
+                <form th:action="@{/logout}" method="post" class="m-0">
+                    <button type="submit"
+                        class="flex items-center gap-1.5 text-sm bg-teal-800 hover:bg-teal-900 px-3 py-1.5 rounded-lg transition-colors">
+                        <i data-lucide="log-out" class="w-4 h-4"></i>
+                        Sair
+                    </button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <header class="relative bg-slate-800 text-white overflow-hidden">
+        <img th:src="@{/images/puc_image.jpg}" alt="Puc Minas"
+            class="absolute inset-0 w-full h-full object-cover opacity-25">
+        <div class="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/80 to-transparent"></div>
+
+        <div class="relative max-w-6xl mx-auto px-6 py-16 sm:py-20">
+            <p class="text-teal-400 text-sm font-medium mb-2">Painel do administrador</p>
+            <h1 class="text-3xl sm:text-4xl font-extrabold leading-tight max-w-xl">
+                Bem-vindo de volta.
+            </h1>
+            <p class="text-slate-300 mt-3 max-w-md">
+                Sua conta está protegida com autenticação segura.
+            </p>
+        </div>
+    </header>
+
+    <main>
+
+    </main>
+
+    <script>
+        lucide.createIcons();
+    </script>
+
+</body>
+
+</html>

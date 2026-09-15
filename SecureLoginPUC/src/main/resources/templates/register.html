@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -21,19 +21,15 @@
                 <img th:src="@{/images/puc_image.jpg}" alt="Puc Minas" class="w-full h-full object-cover rounded-2xl">
             </div>
 
-            <div class="relative z-10 w-10 h-auto">
+            <div class="relative z-10 w-15 h-auto">
                 <img th:src="@{/images/logo_puc.png}" alt="Logo PUC Minas">
             </div>
 
-            <div class="absolute top-8 right-8 z-10 text-white">
+            <div class="absolute top-8 right-10 z-10 text-white">
                 <h1 class="text-3xl font-extrabold leading-tight mb-4">
-                    SUA PRIMEIRA<br>
-                    AVENTURA<br>
-                    TE ESPERA!
+                    SUA JORNADA<br>
+                    COMEÇA AQUI!<br>
                 </h1>
-                <p class="text-sm text-slate-300">
-                    Sua jornada começa aqui.
-                </p>
             </div>
         </div>
 
@@ -46,9 +42,19 @@
                     <h2 class="text-2xl font-bold mb-1">Seja bem vindo!</h2>
                     <p class="text-sm text-slate-500 mb-6">Seja bem vindo! Insira seus dados.</p>
                 </div>
-                
+
             </div>
-            
+
+            <div th:if="${param.error != null}"
+                class="mb-4 p-3 rounded-lg bg-red-50 border border-red-200 text-red-700 text-sm flex items-start gap-2">
+                <i data-lucide="alert-circle" class="w-4 h-4 mt-0.5 shrink-0"></i>
+                <span th:if="${param.error[0] == 'email'}">
+                    Este e-mail já está cadastrado. Tente outro ou faça login.
+                </span>
+                <span th:if="${param.error[0] == 'username'}">
+                    Este nome de usuário já está em uso. Escolha outro.
+                </span>
+            </div>
 
             <form th:action="@{/register}" method="post" novalidate>
                 <div class="mb-4">
@@ -75,6 +81,9 @@
                             <i id="eye-icon" class="w-4 h-4" data-lucide="eye-off"></i>
                         </button>
                     </div>
+                    <p class="text-xs text-slate-400 mt-1">
+                        Mínimo de 8 caracteres, com 1 letra maiúscula, 1 número e 1 símbolo (ex: !@#$%).
+                    </p>
                     <span id="passwordError" class="error-message hidden text-xs text-red-500 mt-1"></span>
                 </div>
                 <div>
@@ -141,11 +150,11 @@
         form.addEventListener("submit", function (event) {
             let valido = true;
             usernameError.classList.add("hidden");
-            emailError.classList.add("hidden"); 
+            emailError.classList.add("hidden");
             passwordError.classList.add("hidden");
             confirmPasswordError.classList.add("hidden");
             usernameError.textContent = "";
-            emailError.textContent = ""; 
+            emailError.textContent = "";
             passwordError.textContent = "";
             confirmPasswordError.textContent = "";
             if (username.value.trim() === "") {
@@ -166,8 +175,8 @@
                 passwordError.textContent = "Informe sua senha.";
                 passwordError.classList.remove("hidden");
                 valido = false;
-            } else if(!passwordRegex.test(password.value)){
-                passwordError.textContent = "Informe uma senha válida.";
+            } else if (!passwordRegex.test(password.value)) {
+                passwordError.textContent = "A senha deve ter no mínimo 8 caracteres, incluindo maiúscula, número e símbolo.";
                 passwordError.classList.remove("hidden");
                 valido = false;
             }

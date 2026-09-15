@@ -20,19 +20,15 @@
         <img th:src="@{/images/puc_image.jpg}" alt="Puc Minas" class="w-full h-full object-cover rounded-2xl">
       </div>
 
-      <div class="relative z-10 w-10 h-auto">
+      <div class="relative z-10 w-15 h-auto">
         <img th:src="@{/images/logo_puc.png}" alt="Logo PUC Minas">
       </div>
 
-      <div class="absolute top-8 right-8 z-10 text-white">
+      <div class="absolute top-8 right-10 z-10 text-white">
         <h1 class="text-3xl font-extrabold leading-tight mb-4">
-          SUA PRÓXIMA<br>
-          AVENTURA<br>
-          TE ESPERA!
+          SUA JORNADA<br>
+          COMEÇA AQUI!<br>
         </h1>
-        <p class="text-sm text-slate-300">
-          Sua jornada começa aqui.
-        </p>
       </div>
     </div>
 
@@ -102,7 +98,7 @@
 
     form.addEventListener("submit", function (event) {
       let valido = true;
-      emailError.classList.add("hidden"); 
+      emailError.classList.add("hidden");
       passwordError.classList.add("hidden");
       emailError.textContent = ""; passwordError.textContent = "";
       passwordError.textContent = "";

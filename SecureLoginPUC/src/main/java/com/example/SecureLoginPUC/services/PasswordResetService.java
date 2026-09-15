@@ -4,7 +4,6 @@ import com.example.SecureLoginPUC.entities.PasswordResetToken;
 import com.example.SecureLoginPUC.entities.User;
 import com.example.SecureLoginPUC.repositories.PasswordResetTokenRepository;
 import com.example.SecureLoginPUC.repositories.UserRepository;
-import com.example.SecureLoginPUC.services.SendEmailService; // ajuste conforme o pacote real
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,14 +38,12 @@ public class PasswordResetService {
     public void createPasswordResetTokenAndSendEmail(String email) {
         User user = userRepository.findByEmail(email).orElse(null);
 
-        // Não revele se o e-mail existe ou não (evita enumeração de contas)
         if (user == null) {
             System.out.println("DEBUG: usuário não encontrado para o e-mail: " + email);
             return;
         }
         System.out.println("DEBUG: usuário encontrado: " + user.getEmail());
 
-        // Remove tokens antigos desse usuário
         tokenRepository.deleteByUser_Id(user.getId());
 
         String token = UUID.randomUUID().toString();

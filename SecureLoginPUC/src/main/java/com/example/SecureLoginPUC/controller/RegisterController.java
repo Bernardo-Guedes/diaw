@@ -27,12 +27,10 @@ public class RegisterController {
 
         try {
             userService.register(username, email, password);
-            System.out.println("Registro: Redirecionando para a página de login.");
             return "redirect:/login";
 
         } catch (RuntimeException e) {
-            System.out.println("Erro ao realizar registro: " + e.getMessage());
-            return "redirect:/register?error=true";
+            return "redirect:/register?error=" + e.getMessage();
         }
     }
 }
