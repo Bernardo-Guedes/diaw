@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <title>Document</title>
+</head>
+<body class="bg-gray-300">
+    <header class="p-3 bg-blue-700">
+        <h1 class="text-xl font-bold text-white">Candidatos - Eleições 2026 - MG</h1>
+    </header>
+
+    <nav class="rounded-md mt-5 mx-30 p-4 bg-white">
+        <form method="get" th:action="@{/}" class="filtros">
+            <div class="flex gap-4"> 
+                <div>
+                    <p class="text-xs text-gray-500 mb-1">Busca por nome / número</p>
+                    <input class="cursor-pointer p-1 border-1 border-gray-300 rounded-md" type="text" name="texto" th:value="${textoSelecionado}" placeholder="Ex: Ana, 1240...">
+                </div>
+                <div>
+                    <p class="text-xs text-gray-500 mb-1">Cargo</p>
+                    <select name="cargo" class="p-1 border-1 border-gray-300 rounded-md cursor-pointer">
+                        <option value="" th:selected="${cargoSelecionado == ''}">Todos</option>
+                        <option th:each="c : ${cargos}"
+                                th:value="${c}"
+                                th:text="${c}"
+                                th:selected="${c == cargoSelecionado}"></option>
+                    </select>
+                </div>
+                <div>
+                    <p class="text-xs text-gray-500 mb-1">Partido</p>
+                    <select name="partido" class="p-1 border-1 border-gray-300 rounded-md cursor-pointer">
+                        <option value="" th:selected="${partidoSelecionado == ''}">Todos</option>
+                        <option th:each="p : ${partidos}"
+                                th:value="${p}"
+                                th:text="${p}"
+                                th:selected="${p == partidoSelecionado}"></option>
+                    </select>
+                </div>
+                <button type="submit" class="cursor-pointer rounded-md px-3 bg-blue-700 text-white">Filtrar</button>
+                <a th:href="@{/}" class="limpar cursor-pointer rounded-md p-2 bg-gray-300 text-center">Limpar</a>
+            </div>
+        </form>
+    </nav>
+
+    <main class="mt-4 mx-30">
+        <p class="text-sm text-gray-900" th:text="|${total} candidato(s) encontrado(s)|"></p>
+        <p class="text-sm text-gray-900" th:if="${total == 0}">Nenhum candidato encontrado com esses filtros.</p>
+        <div class="grid grid-cols-7 gap-3 mt-4">
+            <div class="card rounded-md bg-white" th:each="cand : ${candidatos}">
+                <img th:src="@{'/images/candidatos/' + ${cand.nomeArquivoFoto}}" th:alt="${cand.nomeUrna}" class=" aspect-<161/225> object-cover w-full rounded-md">
+                <div class="p-2">
+                    <p class="situacao text-blue-700 font-semibold text-md" th:text="${cand.nomeCandidato}"></p>
+                    <p th:text="|Número: ${cand.nrCandidato}|" class="text-sm text-gray-900 font-semibold"></p>
+                    <p th:text="${cand.cargo}" class="text-sm text-gray-900 font-semibold"></p>
+                    <p th:text="|${cand.siglaPartido} - ${cand.nomePartido}|" class="text-sm text-gray-700"></p>
+                    <p th:text="${cand.uf}" class="text-sm text-gray-700"></p>
+                    <p th:text="|${cand.getIdade} anos|" class="text-sm text-gray-700"></p>
+                    <p th:text="${cand.ocupacao}" class="text-sm text-gray-700"></p>
+                    <p th:text="${grauInstrucao}" class="text-sm text-gray-700"></p>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    
+</body>
+</html>
