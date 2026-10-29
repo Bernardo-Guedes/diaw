@@ -1,0 +1,121 @@
+@import 'tailwindcss';
+
+/* Tema escuro controlado pelo atributo data-theme="dark" no <html> (permite usar dark:...) */
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+/* Paleta: valores reais ficam em variáveis e trocam entre claro/escuro */
+:root {
+  --bg: #eef2f5;
+  --surface: #ffffff;
+  --surface-2: #f3f6f9;
+  --ink: #1b2a3a;
+  --ink-soft: #5b6b7b;
+  --line: #d9e1e8;
+  --accent: #d93a31;
+  --accent-ink: #ffffff;
+  --focus: #2a6df4;
+  --shadow: 0 1px 2px rgba(27, 42, 58, 0.06), 0 6px 18px rgba(27, 42, 58, 0.06);
+  color-scheme: light;
+}
+
+:root[data-theme='dark'] {
+  --bg: #11161c;
+  --surface: #1a212a;
+  --surface-2: #222b36;
+  --ink: #e8eef4;
+  --ink-soft: #9aabbb;
+  --line: #2c3743;
+  --accent: #ef5a50;
+  --accent-ink: #1a0f0e;
+  --focus: #7aa7ff;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.35);
+  color-scheme: dark;
+}
+
+/* Gera utilitários como bg-surface, text-ink, border-line, font-display, shadow-card… */
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+
+  --shadow-card: var(--shadow);
+}
+
+@theme {
+  --font-sans: 'Figtree', 'Segoe UI', system-ui, sans-serif;
+  --font-display: 'Bricolage Grotesque', 'Segoe UI', system-ui, sans-serif;
+
+  --animate-fade: fade 0.15s ease-out;
+  --animate-pop: pop 0.2s ease-out;
+  --animate-rise: rise 0.2s ease-out;
+  --animate-grow: grow 0.5s ease-out;
+
+  @keyframes fade {
+    from {
+      opacity: 0;
+    }
+  }
+  @keyframes pop {
+    from {
+      opacity: 0;
+      transform: translateY(10px) scale(0.98);
+    }
+  }
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+  }
+  @keyframes grow {
+    from {
+      transform: scaleX(0);
+    }
+  }
+}
+
+/* Utilitários próprios que dependem da cor do tipo (--tc) definida em cada card */
+@utility bg-type-glow {
+  background:
+    radial-gradient(
+      circle at 50% var(--glow-y, 50%),
+      color-mix(in srgb, var(--tc) 38%, transparent),
+      transparent 68%
+    ),
+    color-mix(in srgb, var(--tc) 12%, var(--surface-2));
+}
+
+@utility text-type-tint {
+  color: color-mix(in srgb, var(--tc) 60%, var(--ink));
+}
+
+@layer base {
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.5;
+  }
+
+  button:not(:disabled) {
+    cursor: pointer;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
