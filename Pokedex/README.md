@@ -203,8 +203,8 @@ npm -v
 1. **Clone o repositório:**
 
 ```bash
-git clone <URL_DO_SEU_REPOSITÓRIO>
-cd <pasta-do-projeto>
+git clone https://github.com/Bernardo-Guedes/diaw.git
+cd diaw/Pokedex
 ```
 
 2. **Instale as dependências:**
