@@ -95,7 +95,7 @@ As versões exatas estão no `package.json`. Recomenda-se usar as versões insta
 ### 💻 Front-end
 
 - **Biblioteca:** [React](https://react.dev/) (componentes funcionais e hooks)
-- **Linguagem:** [TypeScript](https://www.typescriptlang.org/) em modo estrito (`.ts` e `.tsx`)
+- **Linguagem:** [TypeScript](https://www.typescriptlang.org/) (`.ts` e `.tsx`)
 - **Estilização:** [Tailwind CSS v4](https://tailwindcss.com/) via plugin `@tailwindcss/vite` (sem arquivos `.css` por componente)
 - **Gerenciamento de estado:** hooks nativos (`useState`, `useMemo`, `useCallback`) e um hook próprio, `useLocalStorage<T>`
 - **Build Tool:** [Vite](https://vite.dev/)
